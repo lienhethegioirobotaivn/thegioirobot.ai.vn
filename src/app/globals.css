@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* ------------------------------------------------------------------ */
+:root {
+  --bg-void: #04060d;
+  --bg-surface: #0a0e1a;
+  --bg-surface-2: #0e1424;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-soft: rgba(255, 255, 255, 0.05);
+  --text-primary: #f4f6fb;
+  --text-secondary: #9aa4bd;
+  --text-muted: #626d89;
+  --accent: #2f6dfa;
+  --accent-2: #5ec8ff;
+  --accent-soft: rgba(47, 109, 250, 0.14);
+}
+
+@theme inline {
+  --color-void: var(--bg-void);
+  --color-surface: var(--bg-surface);
+  --color-surface-2: var(--bg-surface-2);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+
+  /* --font-be-vietnam / --font-space-grotesk được next/font inject qua className ở layout.tsx */
+  --font-sans: var(--font-be-vietnam);
+  --font-display: var(--font-space-grotesk);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3.5s ease-in-out infinite;
+  --animate-orbit-spin: orbit-spin 40s linear infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll-reveal animation primitives (used by <Reveal />)             */
+/* ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Radial glow used behind hero / product visuals */
+.glow-orb {
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(47, 109, 250, 0.35) 0%,
+    rgba(47, 109, 250, 0.12) 35%,
+    rgba(4, 6, 13, 0) 70%
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #7db6ff 0%, #2f6dfa 55%, #5ec8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.grid-lines {
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
