@@ -1,9 +1,9 @@
 "use client";
 
+import { Bot, ChevronDown, Menu, Search, Sparkles, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Bot, ChevronDown, Menu, Search, Sparkles, X } from "lucide-react";
 
 /* Nav data — lives outside the component so it can later be swapped for a fetch/CMS call. */
 const navLinks = [
@@ -42,16 +42,16 @@ export function Header() {
       className={`sticky top-0 z-50 border-b transition-colors duration-500 ${
         isScrolled
           ? "border-line bg-void/50 backdrop-blur-xl"
-          : "border-transparent bg-void/40 backdrop-blur-md"
+          : "bg-void/40 border-transparent backdrop-blur-md"
       }`}
     >
       <div className="mx-auto flex h-16 items-center justify-between px-5 sm:h-20 sm:px-8">
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-2.5">
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-line bg-surface transition-colors group-hover:border-accent/50">
-            <Bot className="h-4.5 w-4.5 text-accent-2" strokeWidth={1.75} />
+          <span className="border-line bg-surface group-hover:border-accent/50 relative flex h-9 w-9 items-center justify-center rounded-xl border transition-colors">
+            <Bot className="text-accent-2 h-4.5 w-4.5" strokeWidth={1.75} />
           </span>
-          <span className="font-display text-[15px] font-semibold tracking-[0.14em] text-text-primary sm:text-[17px]">
+          <span className="font-display text-text-primary text-[15px] font-semibold tracking-[0.14em] sm:text-[17px]">
             THEGIOIROBOT
           </span>
         </Link>
@@ -65,11 +65,11 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 data-active={isActive}
-                className="group/nav relative py-1 text-[13.5px] font-medium tracking-wide text-text-primary transition-colors duration-300 hover:text-accent-2 data-[active=true]:text-accent-2"
+                className="group/nav text-text-primary hover:text-accent-2 data-[active=true]:text-accent-2 relative py-1 text-[13.5px] font-medium tracking-wide transition-colors duration-300"
               >
                 {link.label}
                 <span
-                  className={`absolute -bottom-1 left-0 h-px bg-accent-2 transition-all duration-300 ease-out ${
+                  className={`bg-accent-2 absolute -bottom-1 left-0 h-px transition-all duration-300 ease-out ${
                     isActive ? "w-full" : "w-0 group-hover/nav:w-full"
                   }`}
                 />
@@ -82,16 +82,16 @@ export function Header() {
         <div className="hidden items-center gap-4 lg:flex">
           <button
             aria-label="Tìm kiếm"
-            className="text-text-secondary transition-colors hover:text-text-primary"
+            className="text-text-secondary hover:text-text-primary transition-colors"
           >
             <Search className="h-4.5 w-4.5" strokeWidth={1.75} />
           </button>
-          <button className="flex items-center gap-1 text-[13.5px] font-medium text-text-secondary transition-colors hover:text-text-primary">
+          <button className="text-text-secondary hover:text-text-primary flex items-center gap-1 text-[13.5px] font-medium transition-colors">
             VI <ChevronDown className="h-3.5 w-3.5" />
           </button>
           <Link
             href="#dung-thu"
-            className="group flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[13.5px] font-semibold text-white shadow-[0_0_0_0_rgba(47,109,250,0.5)] transition-all duration-300 hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
+            className="group bg-accent flex items-center gap-2 rounded-full px-5 py-2.5 text-[13.5px] font-semibold text-white shadow-[0_0_0_0_rgba(47,109,250,0.5)] transition-all duration-300 hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
           >
             <Sparkles className="h-3.5 w-3.5 transition-transform group-hover:rotate-12" />
             Dùng thử AI
@@ -102,7 +102,7 @@ export function Header() {
         <button
           aria-label={isOpen ? "Đóng menu" : "Mở menu"}
           onClick={() => setIsOpen((v) => !v)}
-          className="relative z-50 flex h-9 w-9 items-center justify-center rounded-lg border border-line text-text-primary lg:hidden"
+          className="border-line text-text-primary relative z-50 flex h-9 w-9 items-center justify-center rounded-lg border lg:hidden"
         >
           <Menu
             className={`absolute h-4.5 w-4.5 transition-all duration-300 ${
@@ -119,14 +119,14 @@ export function Header() {
 
       {/* Mobile dropdown — animated height/opacity/blur for a smooth open/close feel */}
       <div
-        className={`grid overflow-hidden border-line transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden ${
+        className={`border-line grid overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden ${
           isOpen
             ? "grid-rows-[1fr] border-t opacity-100"
             : "grid-rows-[0fr] border-t-0 opacity-0"
         }`}
       >
         <div className="min-h-0">
-          <nav className="flex flex-col divide-y divide-line-soft px-5">
+          <nav className="divide-line-soft flex flex-col divide-y px-5">
             {navLinks.map((link, i) => (
               <Link
                 key={link.href}
@@ -135,7 +135,7 @@ export function Header() {
                 style={{
                   transitionDelay: isOpen ? `${i * 40 + 80}ms` : "0ms",
                 }}
-                className={`py-3.5 text-[15px] font-medium text-text-secondary transition-all duration-300 hover:text-text-primary ${
+                className={`text-text-secondary hover:text-text-primary py-3.5 text-[15px] font-medium transition-all duration-300 ${
                   isOpen
                     ? "translate-x-0 opacity-100"
                     : "-translate-x-3 opacity-0"
@@ -145,11 +145,11 @@ export function Header() {
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-3 px-5 pb-6 pt-4">
+          <div className="flex items-center gap-3 px-5 pt-4 pb-6">
             <Link
               href="#dung-thu"
               onClick={() => setIsOpen(false)}
-              className="flex flex-1 items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-[14px] font-semibold text-white"
+              className="bg-accent flex flex-1 items-center justify-center gap-2 rounded-full px-5 py-3 text-[14px] font-semibold text-white"
             >
               <Sparkles className="h-3.5 w-3.5" />
               Dùng thử AI

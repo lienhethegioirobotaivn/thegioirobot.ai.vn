@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   ArrowRight,
   Brain,
@@ -10,6 +9,8 @@ import {
   Navigation,
   Warehouse,
 } from "lucide-react";
+import Link from "next/link";
+
 import { Reveal } from "@/components/Reveal";
 
 /* --------------------------- Section: Giải pháp doanh nghiệp --------------------------- */
@@ -41,20 +42,20 @@ const aboutStats = [
 
 export function SolutionsTechAbout() {
   return (
-    <section className="border-t border-line-soft">
-      <div className="mx-auto grid grid-cols-1 gap-4 px-6 lg:px-12 py-16 sm:px-8 lg:grid-cols-3 lg:py-20">
+    <section className="border-line-soft border-t">
+      <div className="mx-auto grid grid-cols-1 gap-4 px-6 py-16 sm:px-8 lg:grid-cols-3 lg:px-12 lg:py-20">
         {/* --- Giải pháp doanh nghiệp --- */}
         <Reveal
           id="giai-phap"
-          className="rounded-3xl border border-line hover:border-accent/40 bg-surface p-7"
+          className="border-line hover:border-accent/40 bg-surface rounded-3xl border p-7"
         >
-          <span className="text-sm font-black uppercase tracking-wider text-accent-2">
+          <span className="text-accent-2 text-sm font-black tracking-wider uppercase">
             Giải pháp cho doanh nghiệp
           </span>
-          <h3 className="mt-3 text-[19px] font-semibold leading-snug text-text-primary">
+          <h3 className="text-text-primary mt-3 text-[19px] leading-snug font-semibold">
             Tối ưu vận hành, nâng tầm trải nghiệm
           </h3>
-          <p className="mt-2 text-[13.5px] leading-relaxed text-text-secondary">
+          <p className="text-text-secondary mt-2 text-[13.5px] leading-relaxed">
             Robot AI của chúng tôi được ứng dụng trong nhiều lĩnh vực giúp doanh
             nghiệp tự động hóa, tiết kiệm chi phí và nâng cao chất lượng dịch
             vụ.
@@ -63,10 +64,10 @@ export function SolutionsTechAbout() {
             {solutionItems.map((item) => (
               <li key={item.label} className="flex items-center gap-3">
                 <item.icon
-                  className="h-4 w-4 shrink-0 text-accent-2"
+                  className="text-accent-2 h-4 w-4 shrink-0"
                   strokeWidth={1.75}
                 />
-                <span className="text-[13px] text-text-secondary">
+                <span className="text-text-secondary text-[13px]">
                   {item.label}
                 </span>
               </li>
@@ -74,7 +75,7 @@ export function SolutionsTechAbout() {
           </ul>
           <Link
             href="#"
-            className="group mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2 text-[13.5px] font-medium text-white transition-shadow hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
+            className="group bg-accent mt-6 inline-flex items-center gap-2 rounded-full px-6 py-2 text-[13.5px] font-medium text-white transition-shadow hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
           >
             Xem giải pháp
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -85,20 +86,20 @@ export function SolutionsTechAbout() {
         <Reveal
           id="cong-nghe"
           delay={100}
-          className="rounded-3xl border border-line hover:border-accent/40 bg-surface p-7"
+          className="border-line hover:border-accent/40 bg-surface rounded-3xl border p-7"
         >
-          <span className="text-sm font-black uppercase tracking-wider text-accent-2">
+          <span className="text-accent-2 text-sm font-black tracking-wider uppercase">
             Công nghệ cốt lõi
           </span>
-          <h3 className="mt-3 text-[19px] font-semibold leading-snug text-text-primary">
+          <h3 className="text-text-primary mt-3 text-[19px] leading-snug font-semibold">
             Sức mạnh từ đổi mới
           </h3>
-          <p className="mt-2 text-[13.5px] leading-relaxed text-text-secondary">
+          <p className="text-text-secondary mt-2 text-[13.5px] leading-relaxed">
             Chúng tôi làm chủ các công nghệ AI tiên tiến nhất để tạo ra những
             robot thực sự thông minh và hữu ích.
           </p>
 
-          <div className="mt-6 overflow-hidden rounded-2xl border border-line-soft">
+          <div className="border-line-soft mt-6 overflow-hidden rounded-2xl border">
             <img
               src={techImageSrc}
               alt="Minh hoạ công nghệ lõi AI của Thegioirobot"
@@ -110,10 +111,10 @@ export function SolutionsTechAbout() {
             {techItems.map((item) => (
               <li key={item.label} className="flex items-center gap-3">
                 <item.icon
-                  className="h-4 w-4 shrink-0 text-accent-2"
+                  className="text-accent-2 h-4 w-4 shrink-0"
                   strokeWidth={1.75}
                 />
-                <span className="text-[13px] text-text-secondary">
+                <span className="text-text-secondary text-[13px]">
                   {item.label}
                 </span>
               </li>
@@ -121,7 +122,7 @@ export function SolutionsTechAbout() {
           </ul>
           <Link
             href="#"
-            className="group mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2 text-[13.5px] font-medium text-white transition-shadow hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
+            className="group bg-accent mt-6 inline-flex items-center gap-2 rounded-full px-6 py-2 text-[13.5px] font-medium text-white transition-shadow hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
           >
             Tìm hiểu thêm
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -132,15 +133,15 @@ export function SolutionsTechAbout() {
         <Reveal
           id="ve-chung-toi"
           delay={200}
-          className="rounded-3xl border border-line hover:border-accent/40 bg-surface p-7"
+          className="border-line hover:border-accent/40 bg-surface rounded-3xl border p-7"
         >
-          <span className="text-sm font-black uppercase tracking-wider text-accent-2">
+          <span className="text-accent-2 text-sm font-black tracking-wider uppercase">
             Về chúng tôi
           </span>
-          <h3 className="mt-3 text-[19px] font-semibold leading-snug text-text-primary">
+          <h3 className="text-text-primary mt-3 text-[19px] leading-snug font-semibold">
             Sứ mệnh của chúng tôi
           </h3>
-          <p className="mt-2 text-[13.5px] leading-relaxed text-text-secondary">
+          <p className="text-text-secondary mt-2 text-[13.5px] leading-relaxed">
             Thegioirobot được thành lập với sứ mệnh mang trí tuệ nhân tạo vào
             cuộc sống, tạo ra những người bạn đồng hành robot thông minh, thân
             thiện và đáng tin cậy.
@@ -149,10 +150,10 @@ export function SolutionsTechAbout() {
           <div className="mt-6 grid grid-cols-2 gap-4">
             {aboutStats.map((stat) => (
               <div key={stat.label}>
-                <p className="font-display text-2xl font-bold text-text-primary">
+                <p className="font-display text-text-primary text-2xl font-bold">
                   {stat.value}
                 </p>
-                <p className="mt-1 text-[12px] text-text-secondary">
+                <p className="text-text-secondary mt-1 text-[12px]">
                   {stat.label}
                 </p>
               </div>
@@ -160,7 +161,7 @@ export function SolutionsTechAbout() {
           </div>
           <Link
             href="#"
-            className="group mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2 text-[13.5px] font-medium text-white transition-shadow hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
+            className="group bg-accent mt-6 inline-flex items-center gap-2 rounded-full px-6 py-2 text-[13.5px] font-medium text-white transition-shadow hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
           >
             Tìm hiểu thêm
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

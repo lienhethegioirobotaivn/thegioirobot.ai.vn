@@ -1,7 +1,8 @@
 "use client";
 
-import { useInView } from "@/hooks/use-in-view";
 import { type ElementType, type ReactNode } from "react";
+
+import { useInView } from "@/hooks/use-in-view";
 
 type RevealProps = {
   children: ReactNode;

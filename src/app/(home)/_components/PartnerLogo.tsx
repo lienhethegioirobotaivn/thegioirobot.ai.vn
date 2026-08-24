@@ -15,7 +15,7 @@ export function PartnerLogo({ name, logoSrc }: PartnerLogoProps) {
   }
 
   return (
-    <span className="text-lg font-semibold text-text-secondary transition-colors duration-300 hover:text-text-secondary">
+    <span className="text-text-secondary hover:text-text-secondary text-lg font-semibold transition-colors duration-300">
       {name}
     </span>
   );

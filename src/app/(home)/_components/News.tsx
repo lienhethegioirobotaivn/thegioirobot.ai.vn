@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+
 import { Reveal } from "@/components/Reveal";
 
 /* News items — điền `image` thật khi có; hiện dùng placeholder theo đúng bảng màu thương hiệu. */
@@ -31,17 +32,17 @@ const newsItems = [
 
 export function News() {
   return (
-    <section id="tin-tuc" className="border-t border-line-soft bg-surface">
+    <section id="tin-tuc" className="border-line-soft bg-surface border-t">
       <div className="mx-auto px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
-        <Reveal className="flex flex-col lg:flex-row items-center justify-between gap-4">
+        <Reveal className="flex flex-col items-center justify-between gap-4 lg:flex-row">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1 text-xl font-bold uppercase tracking-wider text-accent-2 sm:text-xl">
+            <span className="border-accent/30 bg-accent/10 text-accent-2 inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xl font-bold tracking-wider uppercase sm:text-xl">
               Tin tức & cập nhật
             </span>
           </div>
           <Link
             href="#"
-            className="group flex shrink-0 items-center gap-1.5 text-sm font-semibold text-text-secondary transition-colors hover:text-accent-2"
+            className="group text-text-secondary hover:text-accent-2 flex shrink-0 items-center gap-1.5 text-sm font-semibold transition-colors"
           >
             Xem tất cả
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -53,9 +54,9 @@ export function News() {
             <Reveal
               key={item.title}
               delay={i * 100}
-              className="group overflow-hidden rounded-2xl border border-line bg-void transition-colors hover:border-accent/40"
+              className="group border-line bg-void hover:border-accent/40 overflow-hidden rounded-2xl border transition-colors"
             >
-              <div className="aspect-4/3 overflow-hidden border-b border-line-soft">
+              <div className="border-line-soft aspect-4/3 overflow-hidden border-b">
                 <img
                   src={item.image}
                   alt={item.title}
@@ -63,15 +64,15 @@ export function News() {
                 />
               </div>
               <div className="p-5">
-                <span className="text-xs font-semibold text-text-secondary">
+                <span className="text-text-secondary text-xs font-semibold">
                   {item.date}
                 </span>
-                <h3 className="mt-2 text-[14px] font-semibold leading-snug text-text-primary">
+                <h3 className="text-text-primary mt-2 text-[14px] leading-snug font-semibold">
                   {item.title}
                 </h3>
                 <Link
                   href="#"
-                  className="group/link mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-accent-2"
+                  className="group/link text-accent-2 mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold"
                 >
                   Tìm hiểu thêm
                   <ArrowRight className="h-3 w-3 transition-transform group-hover/link:translate-x-1" />
@@ -83,7 +84,7 @@ export function News() {
 
         <Link
           href="#"
-          className="mt-8 flex items-center justify-center gap-1.5 text-[13px] font-semibold text-text-secondary sm:hidden"
+          className="text-text-secondary mt-8 flex items-center justify-center gap-1.5 text-[13px] font-semibold sm:hidden"
         >
           Xem tất cả
           <ArrowRight className="h-3.5 w-3.5" />

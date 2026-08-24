@@ -1,0 +1,6 @@
+.next/
+.pnpm-store/
+.vscode/
+drizzle/meta/*.json
+node_modules/
+pnpm-lock.yaml

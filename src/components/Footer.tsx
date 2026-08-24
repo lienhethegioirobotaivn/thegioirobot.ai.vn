@@ -1,13 +1,14 @@
-import Link from "next/link";
 import { Bot } from "lucide-react";
-import { Reveal } from "@/components/Reveal";
-import { NewsletterForm } from "@/components/NewsletterForm";
+import Link from "next/link";
 import {
   FaFacebook,
   FaInstagram,
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
+
+import { NewsletterForm } from "@/components/NewsletterForm";
+import { Reveal } from "@/components/Reveal";
 
 /* Footer link columns — kept as plain data so it can be fetched/CMS-driven later. */
 const footerColumns = [
@@ -58,20 +59,20 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer id="lien-he" className="border-t border-line bg-surface">
+    <footer id="lien-he" className="border-line bg-surface border-t">
       <div className="mx-auto px-5 py-16 sm:px-8 lg:py-20">
         <Reveal className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_2.5fr_1.4fr]">
           {/* Brand column */}
           <div>
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-line bg-void">
-                <Bot className="h-4.5 w-4.5 text-accent-2" strokeWidth={1.75} />
+              <span className="border-line bg-void flex h-9 w-9 items-center justify-center rounded-xl border">
+                <Bot className="text-accent-2 h-4.5 w-4.5" strokeWidth={1.75} />
               </span>
               <span className="font-display text-[15px] font-semibold tracking-widest">
                 THEGIOIROBOT
               </span>
             </Link>
-            <p className="mt-5 max-w-xs text-[13.5px] leading-relaxed text-text-secondary">
+            <p className="text-text-secondary mt-5 max-w-xs text-[13.5px] leading-relaxed">
               Thegioirobot phát triển các robot AI thông minh, thân thiện và dễ
               tiếp cận, mang công nghệ vào cuộc sống theo cách tự nhiên nhất.
             </p>
@@ -82,7 +83,7 @@ export function Footer() {
                   href={href}
                   target="_blank"
                   aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-text-secondary transition-all hover:border-accent/50 hover:text-accent-2"
+                  className="border-line text-text-secondary hover:border-accent/50 hover:text-accent-2 flex h-9 w-9 items-center justify-center rounded-full border transition-all"
                 >
                   <Icon className="h-4 w-4" strokeWidth={1.75} />
                 </Link>
@@ -94,7 +95,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
             {footerColumns.map((col) => (
               <div key={col.title}>
-                <h4 className="text-[12px] font-semibold uppercase tracking-wider text-text-primary">
+                <h4 className="text-text-primary text-[12px] font-semibold tracking-wider uppercase">
                   {col.title}
                 </h4>
                 <ul className="mt-4 space-y-3">
@@ -102,7 +103,7 @@ export function Footer() {
                     <li key={link}>
                       <Link
                         href="#"
-                        className="text-[13.5px] text-text-secondary transition-colors hover:text-accent-2"
+                        className="text-text-secondary hover:text-accent-2 text-[13.5px] transition-colors"
                       >
                         {link}
                       </Link>
@@ -115,10 +116,10 @@ export function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-[12px] font-semibold uppercase tracking-wider text-text-primary">
+            <h4 className="text-text-primary text-[12px] font-semibold tracking-wider uppercase">
               Đăng ký nhận tin
             </h4>
-            <p className="mt-4 text-[13.5px] leading-relaxed text-text-secondary">
+            <p className="text-text-secondary mt-4 text-[13.5px] leading-relaxed">
               Nhận những cập nhật mới nhất từ Thegioirobot
             </p>
             <NewsletterForm />
@@ -126,7 +127,7 @@ export function Footer() {
         </Reveal>
 
         {/* Bottom bar */}
-        <div className="mt-14 flex flex-col gap-4 border-t border-line-soft pt-8 text-[12.5px] text-text-secondary sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-line-soft text-text-secondary mt-14 flex flex-col gap-4 border-t pt-8 text-[12.5px] sm:flex-row sm:items-center sm:justify-between">
           <p>© 2024 Thegioirobot AI Company. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             {legalLinks.map((l) => (

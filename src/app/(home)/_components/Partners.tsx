@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/Reveal";
+
 import { PartnerLogo } from "./PartnerLogo";
 
 const partners: { name: string; logoSrc?: string }[] = [
@@ -14,10 +15,10 @@ const partners: { name: string; logoSrc?: string }[] = [
 
 export function Partners() {
   return (
-    <section className="border-t border-line-soft bg-surface">
+    <section className="border-line-soft bg-surface border-t">
       <div className="mx-auto px-6 py-14 sm:px-8 lg:px-12">
         <Reveal className="flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1 text-xl font-bold uppercase tracking-wider text-accent-2">
+          <span className="border-accent/30 bg-accent/10 text-accent-2 inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xl font-bold tracking-wider uppercase">
             Đối tác & nhà đầu tư
           </span>
         </Reveal>
