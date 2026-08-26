@@ -40,7 +40,7 @@ export async function VicoProduct() {
                   </div>
                 ) : null}
 
-                <div className="border-line bg-surface-2/95 absolute -top-3 -right-1/4 z-10 flex items-center gap-2 rounded-2xl rounded-br-sm border px-4 py-2.5 whitespace-nowrap shadow-lg backdrop-blur-md sm:-right-14">
+                <div className="border-line bg-surface-2/95 absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 -translate-y-full items-center gap-2 rounded-2xl border px-4 py-2.5 whitespace-nowrap shadow-lg backdrop-blur-md">
                   <MessageSquareText className="text-accent-2 h-3.5 w-3.5 shrink-0" />
                   <p className="text-text-primary text-[12px] leading-snug font-medium">
                     {data.speechBubbleText}

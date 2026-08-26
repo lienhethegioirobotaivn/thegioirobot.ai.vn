@@ -1,4 +1,3 @@
-import { Bot } from "lucide-react";
 import Link from "next/link";
 import {
   FaFacebook,
@@ -64,13 +63,12 @@ export function Footer() {
         <Reveal className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_2.5fr_1.4fr]">
           {/* Brand column */}
           <div>
-            <Link href="/" className="flex items-center gap-2.5">
-              <span className="border-line bg-void flex h-9 w-9 items-center justify-center rounded-xl border">
-                <Bot className="text-accent-2 h-4.5 w-4.5" strokeWidth={1.75} />
-              </span>
-              <span className="font-display text-[15px] font-semibold tracking-widest">
-                THEGIOIROBOT
-              </span>
+            <Link href="/" className="flex items-center">
+              <img
+                src="/logo.png"
+                alt="TheGioiRobot Logo"
+                className="h-12 w-auto object-contain"
+              />
             </Link>
             <p className="text-text-secondary mt-5 max-w-xs text-[13.5px] leading-relaxed">
               Thegioirobot phát triển các robot AI thông minh, thân thiện và dễ

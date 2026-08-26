@@ -79,14 +79,14 @@ export function ImageUploadField({
             <button
               type="button"
               onClick={handleRemove}
-              className="absolute top-2 right-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition-opacity group-hover:opacity-100"
+              className="absolute top-2 right-2 z-10 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full text-red-500 opacity-0 transition-opacity group-hover:opacity-100"
             >
-              <X className="h-3.5 w-3.5" />
+              <X className="size-4" />
             </button>
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
-              className="absolute inset-0 flex items-center justify-center bg-black/0 text-transparent transition-colors hover:bg-black/40 hover:text-white"
+              className="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/0 text-transparent transition-colors hover:bg-black/40 hover:text-white"
             >
               <span className="text-[11px] font-semibold">Đổi ảnh</span>
             </button>

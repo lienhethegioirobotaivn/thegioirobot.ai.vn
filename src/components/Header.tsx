@@ -1,6 +1,6 @@
 "use client";
 
-import { Bot, ChevronDown, Menu, Search, Sparkles, X } from "lucide-react";
+import { ChevronDown, Menu, Search, Sparkles, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -45,15 +45,14 @@ export function Header() {
           : "bg-void/40 border-transparent backdrop-blur-md"
       }`}
     >
-      <div className="mx-auto flex h-16 items-center justify-between px-5 sm:h-20 sm:px-8">
+      <div className="mx-auto flex items-center justify-between px-5 py-4 sm:px-8">
         {/* Logo */}
-        <Link href="/" className="group flex items-center gap-2.5">
-          <span className="border-line bg-surface group-hover:border-accent/50 relative flex h-9 w-9 items-center justify-center rounded-xl border transition-colors">
-            <Bot className="text-accent-2 h-4.5 w-4.5" strokeWidth={1.75} />
-          </span>
-          <span className="font-display text-text-primary text-[15px] font-semibold tracking-[0.14em] sm:text-[17px]">
-            THEGIOIROBOT
-          </span>
+        <Link href="/" className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="TheGioiRobot Logo"
+            className="h-12 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop nav */}
