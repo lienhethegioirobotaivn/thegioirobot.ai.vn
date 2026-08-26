@@ -77,7 +77,7 @@ export function PartnersEditor({ items }: { items: PartnerItem[] }) {
           >
             <ImageUploadField
               label="Logo"
-              hint="Logo nền trong suốt, cao 80px, PNG/SVG, tối đa 1MB"
+              hint="Logo nền trong suốt, tối đa 1MB"
               value={item.logoUrl}
               onChange={(url) => updateItem(i, { logoUrl: url })}
               aspectClassName="aspect-2/1"

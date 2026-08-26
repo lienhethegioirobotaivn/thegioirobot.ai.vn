@@ -151,7 +151,7 @@ export function VicoProductEditor({ data }: { data: VicoData }) {
               className="border-line-soft space-y-3 rounded-xl border p-4"
             >
               <div className="grid grid-cols-2 gap-3">
-                <FormField label="Icon (lucide react icon lucide.dev/icons/">
+                <FormField label="Icon">
                   <select
                     value={feature.icon}
                     onChange={(e) => updateFeature(i, { icon: e.target.value })}

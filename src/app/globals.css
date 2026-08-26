@@ -29,7 +29,6 @@
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
 
-  /* --font-be-vietnam / --font-space-grotesk được next/font inject qua className ở layout.tsx */
   --font-sans: var(--font-be-vietnam);
   --font-display: var(--font-space-grotesk);
 
@@ -38,6 +37,45 @@
   --animate-orbit-spin: orbit-spin 40s linear infinite;
 }
 
+/* ------------------------------------------------------------------ */
+/* Modern Custom Scrollbar                                            */
+/* ------------------------------------------------------------------ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) var(--bg-void);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-2);
+  border-radius: 9999px;
+  border: 2px solid var(--bg-void);
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--accent-2);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg-void);
+}
+
+/* ------------------------------------------------------------------ */
+/* Global Reset & Base                                                */
+/* ------------------------------------------------------------------ */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
@@ -49,7 +87,7 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/* Scroll-reveal animation primitives (used by <Reveal />)             */
+/* Scroll-reveal animation primitives                                 */
 /* ------------------------------------------------------------------ */
 .reveal {
   opacity: 0;
@@ -106,7 +144,6 @@ body {
   }
 }
 
-/* Radial glow used behind hero / product visuals */
 .glow-orb {
   background: radial-gradient(
     circle at 50% 45%,
