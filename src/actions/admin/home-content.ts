@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
 import { db } from "@/db";
 import {
@@ -163,9 +164,9 @@ export async function replaceHomePartners(
   return { success: true };
 }
 
-export async function getHomePartners() {
+export const getHomePartners = cache(async function getHomePartners() {
   return db.select().from(homePartners).orderBy(homePartners.sortOrder);
-}
+});
 
 /* ---------- News (multi-row: replace toàn bộ danh sách) ---------- */
 export async function replaceHomeNews(items: (typeof homeNews.$inferInsert)[]) {
@@ -189,28 +190,34 @@ export async function replaceHomeNews(items: (typeof homeNews.$inferInsert)[]) {
   return { success: true };
 }
 
-export async function getHomeNews() {
+export const getHomeNews = cache(async function getHomeNews() {
   return db.select().from(homeNews).orderBy(homeNews.sortOrder);
-}
+});
 
 /* ---------- getters cho singleton ---------- */
-export async function getHomeHero() {
+export const getHomeHero = cache(async function getHomeHero() {
   const [row] = await db.select().from(homeHero).limit(1);
   return row ?? null;
-}
-export async function getHomeVico() {
+});
+
+export const getHomeVico = cache(async function getHomeVico() {
   const [row] = await db.select().from(homeVico).limit(1);
   return row ?? null;
-}
-export async function getHomeSolutionsTechAbout() {
-  const [row] = await db.select().from(homeSolutionsTechAbout).limit(1);
-  return row ?? null;
-}
-export async function getHomeStats() {
+});
+
+export const getHomeSolutionsTechAbout = cache(
+  async function getHomeSolutionsTechAbout() {
+    const [row] = await db.select().from(homeSolutionsTechAbout).limit(1);
+    return row ?? null;
+  },
+);
+
+export const getHomeStats = cache(async function getHomeStats() {
   const [row] = await db.select().from(homeStats).limit(1);
   return row ?? null;
-}
-export async function getHomeFinalCta() {
+});
+
+export const getHomeFinalCta = cache(async function getHomeFinalCta() {
   const [row] = await db.select().from(homeFinalCta).limit(1);
   return row ?? null;
-}
+});

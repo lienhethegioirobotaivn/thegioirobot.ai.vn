@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
 
 import { getSiteConfig } from "@/actions/admin/site-config";
@@ -12,6 +12,13 @@ const beVietnam = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
   weight: ["300", "400", "500", "600", "700", "800"],
 });
+
+export async function generateViewport(): Promise<Viewport> {
+  const config = await getSiteConfig();
+  return {
+    themeColor: config?.themeColor ?? "#0a0e1a",
+  };
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getSiteConfig();
@@ -53,13 +60,29 @@ export async function generateMetadata(): Promise<Metadata> {
     verification: config.googleSiteVerification
       ? { google: config.googleSiteVerification }
       : undefined,
-    themeColor: config.themeColor,
   };
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const config = await getSiteConfig();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: config?.siteName ?? "Thegioirobot",
+    url: config?.canonicalUrl ?? "https://www.thegioirobot.ai.vn",
+    logo: config?.ogImageUrl ?? undefined,
+    description: config?.description,
+  };
+
   return (
     <html lang="vi" className={`${beVietnam.variable} h-full antialiased`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="bg-void text-text-primary flex min-h-full flex-col font-sans">
         <main className="flex-1">{children}</main>
       </body>

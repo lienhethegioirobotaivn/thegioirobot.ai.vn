@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
 import { db } from "@/db";
 import { siteFooter, siteHeader } from "@/db/schema";
@@ -14,10 +15,10 @@ function revalidateLayout() {
 }
 
 /* ---------- Header ---------- */
-export async function getSiteHeader() {
+export const getSiteHeader = cache(async function getSiteHeader() {
   const [row] = await db.select().from(siteHeader).limit(1);
   return row ?? null;
-}
+});
 
 export async function updateSiteHeader(
   id: string,
@@ -45,10 +46,10 @@ export async function updateSiteHeader(
 }
 
 /* ---------- Footer ---------- */
-export async function getSiteFooter() {
+export const getSiteFooter = cache(async function getSiteFooter() {
   const [row] = await db.select().from(siteFooter).limit(1);
   return row ?? null;
-}
+});
 
 export async function updateSiteFooter(
   id: string,

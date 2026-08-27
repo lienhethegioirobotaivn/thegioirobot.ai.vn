@@ -2,16 +2,17 @@
 
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
 import { db } from "@/db";
 import { siteConfig } from "@/db/schema";
 import { cleanupReplacedImages } from "@/lib/supabase/cleanup-images";
 import { requireAdmin } from "@/lib/supabase/require-admin";
 
-export async function getSiteConfig() {
+export const getSiteConfig = cache(async function getSiteConfig() {
   const [row] = await db.select().from(siteConfig).limit(1);
   return row ?? null;
-}
+});
 
 export async function updateSiteConfig(
   id: string,
