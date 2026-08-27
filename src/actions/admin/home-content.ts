@@ -17,7 +17,7 @@ import { cleanupReplacedImages } from "@/lib/supabase/cleanup-images";
 import { requireAdmin } from "@/lib/supabase/require-admin";
 
 function revalidateHome() {
-  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
   revalidatePath("/admin/home");
 }
 

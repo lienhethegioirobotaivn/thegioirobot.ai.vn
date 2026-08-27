@@ -5,6 +5,8 @@ import { Be_Vietnam_Pro } from "next/font/google";
 
 import { getSiteConfig } from "@/actions/admin/site-config";
 
+export const dynamic = "force-dynamic";
+
 const beVietnam = Be_Vietnam_Pro({
   variable: "--font-be-vietnam",
   subsets: ["latin", "vietnamese"],
