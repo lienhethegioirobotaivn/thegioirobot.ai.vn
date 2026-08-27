@@ -19,6 +19,8 @@ const TARGETS: TargetConfig[] = [
   { table: "site_config", column: "apple_touch_icon_url" },
   { table: "site_config", column: "og_image_url" },
   { table: "site_config", column: "twitter_image_url" },
+  { table: "site_header", column: "logo_url" },
+  { table: "site_footer", column: "logo_url" },
 ];
 
 function extractStoragePath(url: string): string | null {

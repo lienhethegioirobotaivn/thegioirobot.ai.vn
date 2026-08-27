@@ -5,6 +5,7 @@ import {
   LayoutGrid,
   LogOut,
   Menu,
+  PanelTop,
   Settings,
   Undo2,
   X,
@@ -18,6 +19,7 @@ import { createClient } from "@/lib/supabase/client";
 const navItems = [
   { href: "/", label: "Quay về website", icon: Undo2 },
   { href: "/admin", label: "Cấu hình SEO", icon: Settings },
+  { href: "/admin/header-footer", label: "Header & Footer", icon: PanelTop },
   { href: "/admin/home", label: "Trang chủ", icon: Home },
 ];
 

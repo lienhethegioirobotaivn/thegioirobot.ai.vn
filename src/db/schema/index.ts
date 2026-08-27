@@ -6,3 +6,5 @@ export * from "./home-solutions-tech-about";
 export * from "./home-stats";
 export * from "./home-vico";
 export * from "./site-config";
+export * from "./site-footer";
+export * from "./site-header";
