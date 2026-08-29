@@ -102,17 +102,14 @@ export async function Hero() {
               </div>
 
               {data.imageUrl ? (
-                <div className="animate-float border-line group absolute inset-[4%] overflow-hidden rounded-[2.5rem] border shadow-[0_0_60px_-10px_rgba(47,109,250,0.6)]">
+                <div className="animate-float group absolute inset-[8%]">
                   <img
                     src={data.imageUrl}
                     alt="Robot AI đồng hành của Thegioirobot"
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-contain drop-shadow-[0_25px_50px_rgba(47,109,250,0.35)]"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/10" />
-                  <div className="animate-scan-line pointer-events-none absolute inset-x-0 h-1/3 bg-linear-to-b from-transparent via-white/10 to-transparent" />
-                  <div className="border-accent-2/40 pointer-events-none absolute inset-0 rounded-[2.5rem] border" />
-                  <span className="bg-accent absolute top-4 right-4 h-2 w-2 animate-ping rounded-full" />
-                  <span className="bg-accent absolute top-4 right-4 h-2 w-2 rounded-full" />
+                  <span className="bg-accent absolute top-2 right-6 h-2 w-2 animate-ping rounded-full" />
+                  <span className="bg-accent absolute top-2 right-6 h-2 w-2 rounded-full" />
                 </div>
               ) : null}
 
