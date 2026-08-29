@@ -20,18 +20,18 @@ export async function FinalCta() {
       <div className="relative mx-auto max-w-4xl px-6 py-20 text-center sm:px-8 lg:px-12 lg:py-24">
         <Reveal variant="scale">
           {data.imageUrl ? (
-            <div className="border-line mx-auto h-16 w-16 overflow-hidden rounded-2xl border">
+            <div className="mx-auto aspect-square w-[12%] max-w-28 min-w-16 overflow-hidden rounded-2xl sm:rounded-3xl">
               <img
                 src={data.imageUrl}
                 alt=""
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
               />
             </div>
           ) : null}
-          <h2 className="font-display mx-auto mt-6 max-w-xl text-2xl leading-snug font-bold tracking-tight sm:text-3xl">
+          <h2 className="font-display mx-auto mt-6 max-w-xl text-2xl leading-snug font-bold tracking-tight sm:text-3xl lg:text-4xl">
             {data.heading}
           </h2>
-          <p className="text-text-secondary mx-auto mt-3 max-w-md text-[14px] leading-relaxed">
+          <p className="text-text-secondary mx-auto mt-3 max-w-md text-sm leading-relaxed lg:text-base">
             {data.description}
           </p>
           <Link

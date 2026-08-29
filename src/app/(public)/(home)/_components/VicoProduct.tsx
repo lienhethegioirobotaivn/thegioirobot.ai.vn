@@ -1,4 +1,4 @@
-import { ArrowRight, Heart, MessageSquareText } from "lucide-react";
+import { ArrowRight, MessageSquareText } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
@@ -14,50 +14,41 @@ export async function VicoProduct() {
 
   return (
     <section id="vico" className="border-line-soft bg-surface border-t">
-      <div className="mx-auto px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
+      <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-12 lg:py-24">
         <Reveal className="flex justify-center lg:justify-start">
           <span className="border-accent/30 bg-accent/10 text-accent-2 inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-2xl font-bold tracking-wider uppercase">
             {data.eyebrow}
           </span>
         </Reveal>
 
-        <div className="mt-6 grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-10">
+        <div className="mt-16 grid grid-cols-1 items-center gap-12 sm:mt-12 lg:mt-8 lg:grid-cols-12 lg:gap-16">
           <Reveal
             variant="scale"
-            className="relative mx-auto w-full max-w-sm lg:max-w-none"
+            className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none"
           >
-            <div className="relative flex justify-center py-6">
-              <div className="glow-orb absolute inset-0 rounded-full" />
+            <div className="relative mx-auto w-full">
+              <div className="glow-orb absolute inset-0 rounded-full opacity-50 blur-3xl" />
 
-              <div className="relative">
-                {data.imageUrl ? (
-                  <div className="animate-float border-line h-52 w-52 overflow-hidden rounded-[2.5rem] border shadow-[0_0_50px_-12px_rgba(47,109,250,0.55)]">
-                    <img
-                      src={data.imageUrl}
-                      alt="Robot Vico"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                ) : null}
-
-                <div className="border-line bg-surface-2/95 absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 -translate-y-full items-center gap-2 rounded-2xl border px-4 py-2.5 whitespace-nowrap shadow-lg backdrop-blur-md">
-                  <MessageSquareText className="text-accent-2 h-3.5 w-3.5 shrink-0" />
-                  <p className="text-text-primary text-[12px] leading-snug font-medium">
-                    {data.speechBubbleText}
-                  </p>
-                </div>
-
-                <span className="bg-accent-soft absolute -right-2 -bottom-1 z-10 flex h-8 w-8 items-center justify-center rounded-full">
-                  <Heart
-                    className="text-accent-2 h-4 w-4"
-                    fill="currentColor"
+              {data.imageUrl ? (
+                <div className="animate-float border-line bg-void/50 mx-auto aspect-square w-[85%] overflow-hidden rounded-[2.5rem] border p-4 shadow-[0_0_50px_-12px_rgba(47,109,250,0.4)] sm:w-[80%] sm:p-6">
+                  <img
+                    src={data.imageUrl}
+                    alt="Robot Vico"
+                    className="h-full w-full object-contain"
                   />
-                </span>
+                </div>
+              ) : null}
+
+              <div className="border-line bg-surface-2/95 absolute -top-6 left-1/2 z-20 flex w-[70%] -translate-x-1/2 items-center gap-2 rounded-2xl border px-3.5 py-2 shadow-xl backdrop-blur-md sm:px-4 sm:py-2.5">
+                <MessageSquareText className="text-accent-2 h-4 w-4 shrink-0 sm:h-5 sm:w-5" />
+                <p className="text-text-primary text-xs font-medium sm:text-sm">
+                  {data.speechBubbleText}
+                </p>
               </div>
             </div>
           </Reveal>
 
-          <div>
+          <div className="flex flex-col justify-center lg:col-span-7">
             <Reveal>
               <h2 className="font-display text-accent-2 text-4xl font-bold tracking-tight sm:text-5xl">
                 {data.heading}
@@ -68,35 +59,28 @@ export async function VicoProduct() {
               <p className="text-text-secondary mt-3 max-w-md text-[14.5px] leading-relaxed">
                 {data.description}
               </p>
-              <Link
-                href={data.ctaHref}
-                className="group bg-accent mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-[13.5px] font-semibold text-white transition-shadow hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)] lg:w-fit"
-              >
-                {data.ctaLabel}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
             </Reveal>
 
-            <div className="mt-9 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {data.features.map((feature, i) => {
                 const Icon = getIcon(feature.icon);
                 return (
                   <Reveal
                     key={feature.title}
                     delay={i * 90}
-                    className="border-line bg-void hover:border-accent/40 flex items-start gap-3 rounded-2xl border p-4 transition-colors"
+                    className="border-line bg-void/60 hover:border-accent/40 flex items-start gap-3.5 rounded-2xl border p-4 transition-colors"
                   >
-                    <span className="bg-accent-soft flex h-9 w-9 shrink-0 items-center justify-center rounded-xl">
+                    <span className="bg-accent-soft flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
                       <Icon
-                        className="text-accent-2 h-4.5 w-4.5"
+                        className="text-accent-2 h-5 w-5"
                         strokeWidth={1.75}
                       />
                     </span>
                     <div>
-                      <h3 className="text-text-primary text-[13.5px] font-semibold">
+                      <h3 className="text-text-primary text-sm font-semibold">
                         {feature.title}
                       </h3>
-                      <p className="text-text-secondary mt-0.5 text-[12.5px] leading-snug">
+                      <p className="text-text-secondary mt-1 text-xs leading-relaxed">
                         {feature.description}
                       </p>
                     </div>
@@ -104,6 +88,16 @@ export async function VicoProduct() {
                 );
               })}
             </div>
+
+            <Reveal className="mt-8">
+              <Link
+                href={data.ctaHref}
+                className="group bg-accent inline-flex w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)] sm:w-fit"
+              >
+                {data.ctaLabel}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Reveal>
           </div>
         </div>
       </div>

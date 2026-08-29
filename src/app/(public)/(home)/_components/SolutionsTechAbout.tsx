@@ -71,11 +71,11 @@ export async function SolutionsTechAbout() {
           </p>
 
           {data.techImageUrl ? (
-            <div className="border-line-soft mt-6 overflow-hidden rounded-2xl border">
+            <div className="mt-6 w-full overflow-hidden rounded-2xl">
               <img
                 src={data.techImageUrl}
                 alt="Minh hoạ công nghệ lõi AI của Thegioirobot"
-                className="h-40 w-full object-cover"
+                className="h-full w-full object-contain"
               />
             </div>
           ) : null}
