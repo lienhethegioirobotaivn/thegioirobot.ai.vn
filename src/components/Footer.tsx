@@ -15,8 +15,8 @@ export async function Footer() {
   return (
     <footer id="lien-he" className="border-line bg-surface border-t">
       <div className="mx-auto px-5 py-16 sm:px-8 lg:py-20">
-        <Reveal className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_2.5fr_1.4fr]">
-          <div>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_2.5fr_1.4fr]">
+          <Reveal>
             <Link href="/" className="flex items-center">
               {data.logoUrl ? (
                 <img
@@ -42,16 +42,19 @@ export async function Footer() {
                     href={social.href}
                     target="_blank"
                     aria-label={social.label}
-                    className="border-line text-text-secondary hover:border-accent/50 hover:text-accent-2 flex h-9 w-9 items-center justify-center rounded-full border transition-all"
+                    className="border-line text-text-secondary hover:border-accent/50 hover:bg-accent-soft hover:text-accent-2 flex h-9 w-9 items-center justify-center rounded-full border transition-all"
                   >
                     <Icon className="h-4 w-4" />
                   </Link>
                 );
               })}
             </div>
-          </div>
+          </Reveal>
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
+          <Reveal
+            delay={100}
+            className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3"
+          >
             {data.columns.map((col) => (
               <div key={col.title}>
                 <h4 className="text-text-primary text-[12px] font-semibold tracking-wider uppercase">
@@ -71,9 +74,9 @@ export async function Footer() {
                 </ul>
               </div>
             ))}
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delay={200}>
             <h4 className="text-text-primary text-[12px] font-semibold tracking-wider uppercase">
               {data.newsletterHeading}
             </h4>
@@ -81,14 +84,18 @@ export async function Footer() {
               {data.newsletterDescription}
             </p>
             <NewsletterForm />
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <div className="border-line-soft text-text-secondary mt-14 flex flex-col gap-4 border-t pt-8 text-[12.5px] sm:flex-row sm:items-center sm:justify-between">
           <p>{data.copyrightText}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             {data.legalLinks.map((l) => (
-              <Link key={l.label} href={l.href} className="hover:text-accent-2">
+              <Link
+                key={l.label}
+                href={l.href}
+                className="hover:text-accent-2 transition-colors"
+              >
                 {l.label}
               </Link>
             ))}
@@ -96,10 +103,15 @@ export async function Footer() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <span>
               Hotline:{" "}
-              <span className="text-text-secondary">{data.hotline}</span>
+              <span className="text-text-primary font-medium">
+                {data.hotline}
+              </span>
             </span>
             <span>
-              Email: <span className="text-text-secondary">{data.email}</span>
+              Email:{" "}
+              <span className="text-text-primary font-medium">
+                {data.email}
+              </span>
             </span>
           </div>
         </div>

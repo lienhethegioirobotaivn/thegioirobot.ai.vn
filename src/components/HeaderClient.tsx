@@ -82,20 +82,21 @@ export function HeaderClient({
           })}
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <button
             aria-label="Tìm kiếm"
-            className="text-text-secondary hover:text-text-primary transition-colors"
+            className="text-text-secondary hover:text-text-primary flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-white/5"
           >
             <Search className="h-4.5 w-4.5" strokeWidth={1.75} />
           </button>
-          <button className="text-text-secondary hover:text-text-primary flex items-center gap-1 text-[13.5px] font-medium transition-colors">
+          <button className="text-text-secondary hover:text-text-primary flex items-center gap-1 rounded-full px-3 py-2 text-[13.5px] font-medium transition-colors hover:bg-white/5">
             VI <ChevronDown className="h-3.5 w-3.5" />
           </button>
           <Link
             href={ctaHref}
-            className="group bg-accent flex items-center gap-2 rounded-full px-5 py-2.5 text-[13.5px] font-semibold text-white shadow-[0_0_0_0_rgba(47,109,250,0.5)] transition-all duration-300 hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
+            className="group bg-accent relative ml-2 flex items-center gap-2 overflow-hidden rounded-full px-5 py-2.5 text-[13.5px] font-semibold text-white shadow-[0_0_0_0_rgba(47,109,250,0.5)] transition-all duration-300 hover:shadow-[0_0_24px_2px_rgba(47,109,250,0.45)]"
           >
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             <Sparkles className="h-3.5 w-3.5 transition-transform group-hover:rotate-12" />
             {ctaLabel}
           </Link>
@@ -122,7 +123,7 @@ export function HeaderClient({
             : "grid-rows-[0fr] border-t-0 opacity-0"
         }`}
       >
-        <div className="min-h-0">
+        <div className="max-h-[calc(100vh-73px)] min-h-0 overflow-y-auto">
           <nav className="divide-line-soft flex flex-col divide-y px-5">
             {navLinks.map((link, i) => (
               <Link
@@ -144,8 +145,9 @@ export function HeaderClient({
             <Link
               href={ctaHref}
               onClick={() => setIsOpen(false)}
-              className="bg-accent flex flex-1 items-center justify-center gap-2 rounded-full px-5 py-3 text-[14px] font-semibold text-white"
+              className="group bg-accent relative flex flex-1 items-center justify-center gap-2 overflow-hidden rounded-full px-5 py-3 text-[14px] font-semibold text-white"
             >
+              <span className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               <Sparkles className="h-3.5 w-3.5" />
               {ctaLabel}
             </Link>

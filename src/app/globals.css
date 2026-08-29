@@ -113,6 +113,9 @@ body {
   transform: scale(1);
 }
 
+/* ------------------------------------------------------------------ */
+/* Keyframes                                                           */
+/* ------------------------------------------------------------------ */
 @keyframes float {
   0%,
   100% {
@@ -144,6 +147,140 @@ body {
   }
 }
 
+@keyframes orbit-spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes orbit-particle {
+  from {
+    transform: rotate(0deg) translateX(0) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(0) rotate(-360deg);
+  }
+}
+
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    top: -35%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes float-badge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  40% {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes float-free {
+  0% {
+    transform: translate(var(--push-x, 0px), var(--push-y, 0px)) translate(0, 0);
+  }
+  25% {
+    transform: translate(var(--push-x, 0px), var(--push-y, 0px))
+      translate(20px, -30px);
+  }
+  50% {
+    transform: translate(var(--push-x, 0px), var(--push-y, 0px))
+      translate(-15px, -55px);
+  }
+  75% {
+    transform: translate(var(--push-x, 0px), var(--push-y, 0px))
+      translate(-30px, -10px);
+  }
+  100% {
+    transform: translate(var(--push-x, 0px), var(--push-y, 0px)) translate(0, 0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Animation utility classes                                          */
+/* ------------------------------------------------------------------ */
+.animate-orbit-spin-reverse {
+  animation: orbit-spin-reverse 14s linear infinite;
+}
+
+.animate-fade-slide-up {
+  opacity: 0;
+  animation: fade-slide-up 0.7s ease-out forwards;
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 4s ease infinite;
+}
+
+.animate-scan-line {
+  animation: scan-line 3.5s ease-in-out infinite;
+}
+
+.animate-float-badge {
+  animation: float-badge 4.5s ease-in-out infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+.animate-gradient-text {
+  opacity: 0;
+  animation:
+    fade-slide-up 0.7s ease-out forwards,
+    gradient-shift 4s ease infinite;
+}
+
+.orb-free {
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Decorative surfaces                                                 */
+/* ------------------------------------------------------------------ */
 .glow-orb {
   background: radial-gradient(
     circle at 50% 45%,
@@ -151,6 +288,15 @@ body {
     rgba(47, 109, 250, 0.12) 35%,
     rgba(4, 6, 13, 0) 70%
   );
+}
+
+.glow-orb-secondary {
+  background: radial-gradient(
+    circle,
+    rgba(90, 169, 255, 0.35),
+    transparent 70%
+  );
+  filter: blur(60px);
 }
 
 .text-gradient {

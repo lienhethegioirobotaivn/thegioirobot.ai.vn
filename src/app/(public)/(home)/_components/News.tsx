@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
@@ -21,11 +21,10 @@ export async function News() {
     <section id="tin-tuc" className="border-line-soft bg-surface border-t">
       <div className="mx-auto px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
         <Reveal className="flex flex-col items-center justify-between gap-4 lg:flex-row">
-          <div>
-            <span className="border-accent/30 bg-accent/10 text-accent-2 inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xl font-bold tracking-wider uppercase sm:text-xl">
-              Tin tức & cập nhật
-            </span>
-          </div>
+          <span className="border-accent/30 bg-accent/10 text-accent-2 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-semibold tracking-widest uppercase backdrop-blur-sm">
+            <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+            Tin tức & cập nhật
+          </span>
           <Link
             href="#"
             className="group text-text-secondary hover:text-accent-2 flex shrink-0 items-center gap-1.5 text-sm font-semibold transition-colors"
@@ -40,9 +39,9 @@ export async function News() {
             <Reveal
               key={item.id}
               delay={i * 100}
-              className="group border-line bg-void hover:border-accent/40 overflow-hidden rounded-2xl border transition-colors"
+              className="group border-line bg-void hover:border-accent/40 overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-10px_rgba(47,109,250,0.35)]"
             >
-              <div className="border-line-soft aspect-4/3 overflow-hidden border-b">
+              <div className="border-line-soft relative aspect-4/3 overflow-hidden border-b">
                 {item.imageUrl ? (
                   <img
                     src={item.imageUrl}
@@ -50,6 +49,7 @@ export async function News() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 ) : null}
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
               <div className="p-5">
                 <span className="text-text-secondary text-xs font-semibold">
