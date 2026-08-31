@@ -4,12 +4,13 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { siteConfig } from "@/db/schema";
 import { cleanupReplacedImages } from "@/lib/supabase/cleanup-images";
 import { requireAdmin } from "@/lib/supabase/require-admin";
 
 export const getSiteConfig = cache(async function getSiteConfig() {
+  const db = getDb();
   const [row] = await db.select().from(siteConfig).limit(1);
   return row ?? null;
 });
@@ -19,6 +20,7 @@ export async function updateSiteConfig(
   values: Partial<typeof siteConfig.$inferInsert>,
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const [before] = await db
     .select()

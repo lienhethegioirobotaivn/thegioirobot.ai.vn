@@ -2,11 +2,12 @@ import Link from "next/link";
 
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { Reveal } from "@/components/Reveal";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { siteFooter } from "@/db/schema";
 import { getSocialIcon } from "@/lib/social-icon-map";
 
 export async function Footer() {
+  const db = getDb();
   const [data] = await db.select().from(siteFooter).limit(1);
   if (!data) {
     return null;

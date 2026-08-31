@@ -1,34 +1,62 @@
 import { drizzle } from "drizzle-orm/postgres-js";
+import { after } from "next/server";
 import postgres from "postgres";
+import { cache } from "react";
 
 import { env } from "@/env";
 
 import * as schema from "./schema";
 
-// Next.js dev server hot-reload chạy lại module này mỗi lần sửa file,
-// nếu không cache client qua globalThis thì mỗi lần reload sẽ tạo 1
-// client/connection MỚI mà connection cũ không được đóng -> rò rỉ
-// connection rất nhanh khi dev (dù production không bị vì mỗi
-// serverless invocation vốn đã là 1 process riêng, không HMR).
-const globalForDb = globalThis as unknown as {
-  postgresClient: postgres.Sql | undefined;
-};
+const isProduction = process.env.NODE_ENV === "production";
 
-const client =
-  globalForDb.postgresClient ??
-  postgres(env.DATABASE_URL, {
+/**
+ * PRODUCTION (Vercel serverless): tạo 1 client MỚI cho mỗi request
+ * (cache() dedupe trong cùng request), max:1 vì pooler Supabase đã lo
+ * việc pooling, và chủ động đóng connection bằng after() ngay sau khi
+ * response gửi xong — không dựa vào idle_timeout (JS timer không chạy
+ * khi container serverless bị đóng băng sau response).
+ */
+function createProductionDb() {
+  const client = postgres(env.DATABASE_URL, {
     prepare: false,
-    // Production kết nối qua Supabase Transaction Pooler (chỉ 15
-    // connection thật phía Postgres) -> mỗi serverless instance chỉ
-    // giữ 1 connection. Dev chạy 1 process duy nhất nên có thể thoải
-    // mái hơn.
-    max: process.env.NODE_ENV === "production" ? 1 : 10,
-    idle_timeout: 20,
+    max: 1,
     connect_timeout: 10,
   });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForDb.postgresClient = client;
+  try {
+    after(() => {
+      void client.end({ timeout: 5 });
+    });
+  } catch {
+    // after() chỉ khả dụng trong request context. Bỏ qua nếu module
+    // được dùng ngoài request (VD: script seed / drizzle-kit).
+  }
+
+  return drizzle({ client, schema });
 }
 
-export const db = drizzle({ client, schema });
+/**
+ * DEV: giữ 1 client sống xuyên suốt cả phiên `pnpm dev`, cache qua
+ * globalThis để KHÔNG bị tạo mới mỗi lần Next.js hot-reload module
+ * này — nếu không, mỗi lần sửa file sẽ rò rỉ 1 connection (đây chính
+ * là nguyên nhân lỗi "statement timeout" khi chạy local).
+ */
+const globalForDb = globalThis as unknown as {
+  devClient: postgres.Sql | undefined;
+};
+
+function getDevDb() {
+  if (!globalForDb.devClient) {
+    globalForDb.devClient = postgres(env.DATABASE_URL, {
+      prepare: false,
+      max: 10,
+      idle_timeout: 20,
+      connect_timeout: 10,
+    });
+  }
+  return drizzle({ client: globalForDb.devClient, schema });
+}
+
+export const getDb: () => ReturnType<typeof createProductionDb> = isProduction
+  ? cache(createProductionDb)
+  : getDevDb;

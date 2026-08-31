@@ -1,9 +1,10 @@
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homePreorder } from "@/db/schema";
 
 import { PreOrderClient } from "./PreOrderClient";
 
 export async function PreOrder() {
+  const db = getDb();
   const [data] = await db.select().from(homePreorder).limit(1);
   if (!data) {
     return null;

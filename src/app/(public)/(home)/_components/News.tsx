@@ -3,10 +3,11 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homeNews } from "@/db/schema";
 
 export async function News() {
+  const db = getDb();
   const items = await db
     .select()
     .from(homeNews)

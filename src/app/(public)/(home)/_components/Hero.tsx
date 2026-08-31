@@ -2,12 +2,13 @@ import { ArrowRight, Heart, Play, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homeHero } from "@/db/schema";
 
 import { HeroOrbs } from "./HeroOrbs";
 
 export async function Hero() {
+  const db = getDb();
   const [data] = await db.select().from(homeHero).limit(1);
   if (!data) {
     return null;

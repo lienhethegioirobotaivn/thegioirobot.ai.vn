@@ -2,11 +2,12 @@ import { ArrowRight, MessageSquareText, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homeVico } from "@/db/schema";
 import { getIcon } from "@/lib/icon-map";
 
 export async function VicoProduct() {
+  const db = getDb();
   const [data] = await db.select().from(homeVico).limit(1);
   if (!data) {
     return null;

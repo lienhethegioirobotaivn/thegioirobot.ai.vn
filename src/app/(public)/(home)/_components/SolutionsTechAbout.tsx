@@ -2,11 +2,12 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homeSolutionsTechAbout } from "@/db/schema";
 import { getIcon } from "@/lib/icon-map";
 
 export async function SolutionsTechAbout() {
+  const db = getDb();
   const [data] = await db.select().from(homeSolutionsTechAbout).limit(1);
   if (!data) {
     return null;

@@ -1,9 +1,10 @@
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { siteHeader } from "@/db/schema";
 
 import { HeaderClient } from "./HeaderClient";
 
 export async function Header() {
+  const db = getDb();
   const [data] = await db.select().from(siteHeader).limit(1);
   if (!data) {
     return null;

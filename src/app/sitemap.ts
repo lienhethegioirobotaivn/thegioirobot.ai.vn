@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import type { MetadataRoute } from "next";
 
 import { getSiteConfig } from "@/actions/admin/site-config";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homeNews } from "@/db/schema";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -22,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Nếu /tin-tuc là anchor trên trang chủ (không phải route riêng), bỏ phần này.
   // Nếu sau này có trang chi tiết bài viết riêng (/tin-tuc/[slug]), thêm vào đây.
+  const db = getDb();
   const news = await db
     .select({
       id: homeNews.id,

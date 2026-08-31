@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   homeFinalCta,
   homeHero,
@@ -29,6 +29,7 @@ export async function updateHomeHero(
   values: Partial<typeof homeHero.$inferInsert>,
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const [before] = await db
     .select()
@@ -55,6 +56,7 @@ export async function updateHomeVico(
   values: Partial<typeof homeVico.$inferInsert>,
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const [before] = await db
     .select()
@@ -81,6 +83,7 @@ export async function updateHomeSolutionsTechAbout(
   values: Partial<typeof homeSolutionsTechAbout.$inferInsert>,
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const [before] = await db
     .select()
@@ -107,6 +110,7 @@ export async function updateHomeStats(
   values: Partial<typeof homeStats.$inferInsert>,
 ) {
   await requireAdmin();
+  const db = getDb();
   await db
     .update(homeStats)
     .set({ ...values, updatedAt: new Date() })
@@ -121,6 +125,7 @@ export async function updateHomeFinalCta(
   values: Partial<typeof homeFinalCta.$inferInsert>,
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const [before] = await db
     .select()
@@ -146,6 +151,7 @@ export async function replaceHomePartners(
   items: (typeof homePartners.$inferInsert)[],
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const before = await db.select().from(homePartners);
 
@@ -166,12 +172,14 @@ export async function replaceHomePartners(
 }
 
 export const getHomePartners = cache(async function getHomePartners() {
+  const db = getDb();
   return db.select().from(homePartners).orderBy(homePartners.sortOrder);
 });
 
 /* ---------- News (multi-row: replace toàn bộ danh sách) ---------- */
 export async function replaceHomeNews(items: (typeof homeNews.$inferInsert)[]) {
   await requireAdmin();
+  const db = getDb();
 
   const before = await db.select().from(homeNews);
 
@@ -192,18 +200,16 @@ export async function replaceHomeNews(items: (typeof homeNews.$inferInsert)[]) {
 }
 
 export const getHomeNews = cache(async function getHomeNews() {
+  const db = getDb();
   return db.select().from(homeNews).orderBy(homeNews.sortOrder);
 });
 
 /* ---------- Pre-order (singleton chứa nhiều danh sách jsonb) ---------- */
-/**
- * Upsert: bảng có thể chưa có dòng nào (chưa seed / bị xoá).
- * Nếu chưa có -> insert mới. Nếu đã có -> update dòng duy nhất đó.
- */
 export async function saveHomePreorder(
   values: typeof homePreorder.$inferInsert,
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const [before] = await db.select().from(homePreorder).limit(1);
 
@@ -238,34 +244,40 @@ export async function saveHomePreorder(
 }
 
 export const getHomePreorder = cache(async function getHomePreorder() {
+  const db = getDb();
   const [row] = await db.select().from(homePreorder).limit(1);
   return row ?? null;
 });
 
 /* ---------- getters cho singleton ---------- */
 export const getHomeHero = cache(async function getHomeHero() {
+  const db = getDb();
   const [row] = await db.select().from(homeHero).limit(1);
   return row ?? null;
 });
 
 export const getHomeVico = cache(async function getHomeVico() {
+  const db = getDb();
   const [row] = await db.select().from(homeVico).limit(1);
   return row ?? null;
 });
 
 export const getHomeSolutionsTechAbout = cache(
   async function getHomeSolutionsTechAbout() {
+    const db = getDb();
     const [row] = await db.select().from(homeSolutionsTechAbout).limit(1);
     return row ?? null;
   },
 );
 
 export const getHomeStats = cache(async function getHomeStats() {
+  const db = getDb();
   const [row] = await db.select().from(homeStats).limit(1);
   return row ?? null;
 });
 
 export const getHomeFinalCta = cache(async function getHomeFinalCta() {
+  const db = getDb();
   const [row] = await db.select().from(homeFinalCta).limit(1);
   return row ?? null;
 });

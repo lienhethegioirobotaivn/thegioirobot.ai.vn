@@ -1,8 +1,9 @@
 import { Reveal } from "@/components/Reveal";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homeStats } from "@/db/schema";
 
 export async function Stats() {
+  const db = getDb();
   const [data] = await db.select().from(homeStats).limit(1);
   if (!data) {
     return null;

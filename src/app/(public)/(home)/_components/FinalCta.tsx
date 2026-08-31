@@ -2,10 +2,11 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homeFinalCta } from "@/db/schema";
 
 export async function FinalCta() {
+  const db = getDb();
   const [data] = await db.select().from(homeFinalCta).limit(1);
   if (!data) {
     return null;

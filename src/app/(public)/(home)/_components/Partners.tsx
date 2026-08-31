@@ -1,12 +1,13 @@
 import { Sparkles } from "lucide-react";
 
 import { Reveal } from "@/components/Reveal";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { homePartners } from "@/db/schema";
 
 import { PartnerLogo } from "./PartnerLogo";
 
 export async function Partners() {
+  const db = getDb();
   const partners = await db
     .select()
     .from(homePartners)

@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { siteFooter, siteHeader } from "@/db/schema";
 import { cleanupReplacedImages } from "@/lib/supabase/cleanup-images";
 import { requireAdmin } from "@/lib/supabase/require-admin";
@@ -16,6 +16,7 @@ function revalidateLayout() {
 
 /* ---------- Header ---------- */
 export const getSiteHeader = cache(async function getSiteHeader() {
+  const db = getDb();
   const [row] = await db.select().from(siteHeader).limit(1);
   return row ?? null;
 });
@@ -25,6 +26,7 @@ export async function updateSiteHeader(
   values: Partial<typeof siteHeader.$inferInsert>,
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const [before] = await db
     .select()
@@ -47,6 +49,7 @@ export async function updateSiteHeader(
 
 /* ---------- Footer ---------- */
 export const getSiteFooter = cache(async function getSiteFooter() {
+  const db = getDb();
   const [row] = await db.select().from(siteFooter).limit(1);
   return row ?? null;
 });
@@ -56,6 +59,7 @@ export async function updateSiteFooter(
   values: Partial<typeof siteFooter.$inferInsert>,
 ) {
   await requireAdmin();
+  const db = getDb();
 
   const [before] = await db
     .select()
