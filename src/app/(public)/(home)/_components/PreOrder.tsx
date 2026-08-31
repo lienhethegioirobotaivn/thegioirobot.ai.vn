@@ -1,16 +1,10 @@
-import { getHomePreorder } from "@/actions/admin/home-content";
+import { db } from "@/db";
+import { homePreorder } from "@/db/schema";
 
 import { PreOrderClient } from "./PreOrderClient";
 
 export async function PreOrder() {
-  let data;
-  try {
-    data = await getHomePreorder();
-  } catch (error) {
-    console.error("Không thể tải dữ liệu Pre-order:", error);
-    return null;
-  }
-
+  const [data] = await db.select().from(homePreorder).limit(1);
   if (!data) {
     return null;
   }
