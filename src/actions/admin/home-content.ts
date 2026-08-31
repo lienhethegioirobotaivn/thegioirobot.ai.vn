@@ -10,6 +10,7 @@ import {
   homeHero,
   homeNews,
   homePartners,
+  homePreorder,
   homeSolutionsTechAbout,
   homeStats,
   homeVico,
@@ -192,6 +193,53 @@ export async function replaceHomeNews(items: (typeof homeNews.$inferInsert)[]) {
 
 export const getHomeNews = cache(async function getHomeNews() {
   return db.select().from(homeNews).orderBy(homeNews.sortOrder);
+});
+
+/* ---------- Pre-order (singleton chứa nhiều danh sách jsonb) ---------- */
+/**
+ * Upsert: bảng có thể chưa có dòng nào (chưa seed / bị xoá).
+ * Nếu chưa có -> insert mới. Nếu đã có -> update dòng duy nhất đó.
+ */
+export async function saveHomePreorder(
+  values: typeof homePreorder.$inferInsert,
+) {
+  await requireAdmin();
+
+  const [before] = await db.select().from(homePreorder).limit(1);
+
+  if (!before) {
+    const {
+      id: _ignoredId,
+      updatedAt: _ignoredUpdatedAt,
+      ...insertValues
+    } = values;
+    await db.insert(homePreorder).values(insertValues);
+    revalidateHome();
+    return { success: true };
+  }
+
+  await db
+    .update(homePreorder)
+    .set({ ...values, id: before.id, updatedAt: new Date() })
+    .where(eq(homePreorder.id, before.id));
+
+  const beforeImages = [
+    before.imageUrl,
+    ...before.versionOptions.map((v) => v.imageUrl),
+  ];
+  const afterImages = [
+    values.imageUrl,
+    ...(values.versionOptions ?? before.versionOptions).map((v) => v.imageUrl),
+  ];
+  await cleanupReplacedImages(beforeImages, afterImages);
+
+  revalidateHome();
+  return { success: true };
+}
+
+export const getHomePreorder = cache(async function getHomePreorder() {
+  const [row] = await db.select().from(homePreorder).limit(1);
+  return row ?? null;
 });
 
 /* ---------- getters cho singleton ---------- */

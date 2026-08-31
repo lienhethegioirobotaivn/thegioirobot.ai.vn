@@ -147,7 +147,7 @@ export function HeroOrbs() {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-auto absolute inset-0 z-10 overflow-visible"
+      className="pointer-events-none absolute inset-0 z-10 overflow-visible"
     >
       {ORBS.map((orb, i) => (
         <span

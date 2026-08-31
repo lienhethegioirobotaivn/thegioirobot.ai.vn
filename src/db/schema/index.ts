@@ -2,6 +2,7 @@ export * from "./home-final-cta";
 export * from "./home-hero";
 export * from "./home-news";
 export * from "./home-partners";
+export * from "./home-preorder";
 export * from "./home-solutions-tech-about";
 export * from "./home-stats";
 export * from "./home-vico";

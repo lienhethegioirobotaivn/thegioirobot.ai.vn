@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ChevronDown,
   Home,
   LayoutGrid,
   LogOut,
@@ -16,23 +17,53 @@ import { useState } from "react";
 
 import { createClient } from "@/lib/supabase/client";
 
+const HOME_SUB_ITEMS = [
+  { hash: "hero", label: "Hero" },
+  { hash: "vico", label: "Sản phẩm VICO" },
+  { hash: "solutions-tech-about", label: "Giải pháp / Công nghệ / Giới thiệu" },
+  { hash: "partners", label: "Đối tác & nhà đầu tư" },
+  { hash: "stats", label: "Số liệu thống kê" },
+  { hash: "news", label: "Tin tức" },
+  { hash: "preorder", label: "Đặt trước (Pre-order)" },
+  { hash: "final-cta", label: "CTA cuối trang" },
+];
+
 const navItems = [
   { href: "/", label: "Quay về website", icon: Undo2 },
   { href: "/admin", label: "Cấu hình SEO", icon: Settings },
   { href: "/admin/header-footer", label: "Header & Footer", icon: PanelTop },
-  { href: "/admin/home", label: "Trang chủ", icon: Home },
+  {
+    href: "/admin/home",
+    label: "Trang chủ",
+    icon: Home,
+    subItems: HOME_SUB_ITEMS,
+  },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isHomeExpanded, setIsHomeExpanded] = useState(
+    pathname.startsWith("/admin/home"),
+  );
 
   async function handleLogout() {
     const supabase = createClient();
     await supabase.auth.signOut();
     router.push("/login");
     router.refresh();
+  }
+
+  function handleSubItemClick(hash: string) {
+    setIsMobileOpen(false);
+
+    if (pathname.startsWith("/admin/home")) {
+      document.getElementById(hash)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   }
 
   const content = (
@@ -53,20 +84,70 @@ export function AdminSidebar() {
               ? pathname === item.href
               : pathname.startsWith(item.href);
 
+          if (!item.subItems) {
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMobileOpen(false)}
+                className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-[13.5px] font-medium transition-colors ${
+                  isActive
+                    ? "bg-accent-soft text-accent-2"
+                    : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                }`}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.label}
+              </Link>
+            );
+          }
+
           return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsMobileOpen(false)}
-              className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-[13.5px] font-medium transition-colors ${
-                isActive
-                  ? "bg-accent-soft text-accent-2"
-                  : "text-text-secondary hover:text-text-primary hover:bg-white/5"
-              }`}
-            >
-              <item.icon className="h-4 w-4" />
-              {item.label}
-            </Link>
+            <div key={item.href}>
+              <div
+                className={`flex items-center gap-1 rounded-xl pr-2 transition-colors ${
+                  isActive
+                    ? "bg-accent-soft text-accent-2"
+                    : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                }`}
+              >
+                <Link
+                  href={item.href}
+                  onClick={() => setIsMobileOpen(false)}
+                  className="flex flex-1 items-center gap-3 px-3.5 py-2.5 text-[13.5px] font-medium"
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.label}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setIsHomeExpanded((prev) => !prev)}
+                  aria-label={isHomeExpanded ? "Thu gọn" : "Mở rộng"}
+                  className="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-lg hover:bg-white/10"
+                >
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform ${
+                      isHomeExpanded ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {isHomeExpanded ? (
+                <div className="border-line-soft mt-1 ml-[1.15rem] space-y-0.5 border-l pl-4">
+                  {item.subItems.map((sub) => (
+                    <Link
+                      key={sub.hash}
+                      href={`${item.href}#${sub.hash}`}
+                      onClick={() => handleSubItemClick(sub.hash)}
+                      className="text-text-secondary hover:text-text-primary block truncate rounded-lg px-3 py-1.5 text-[12.5px] font-medium transition-colors hover:bg-white/5"
+                    >
+                      {sub.label}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           );
         })}
       </nav>
@@ -105,7 +186,7 @@ export function AdminSidebar() {
             className="absolute inset-0 bg-black/60"
             onClick={() => setIsMobileOpen(false)}
           />
-          <div className="bg-surface border-line-soft absolute top-0 left-0 flex h-full w-72 flex-col border-r">
+          <div className="bg-surface border-line-soft absolute top-0 left-0 flex h-full w-72 flex-col overflow-y-auto border-r">
             <button
               onClick={() => setIsMobileOpen(false)}
               className="text-text-secondary absolute top-5 right-4 p-1"
@@ -118,7 +199,7 @@ export function AdminSidebar() {
       ) : null}
 
       {/* Desktop sidebar */}
-      <aside className="border-line-soft bg-surface sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r lg:flex">
+      <aside className="border-line-soft bg-surface sticky top-0 hidden h-screen w-64 shrink-0 flex-col overflow-y-auto border-r lg:flex">
         {content}
       </aside>
     </>

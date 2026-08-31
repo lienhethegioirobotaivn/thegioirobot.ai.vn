@@ -3,6 +3,7 @@ import {
   getHomeHero,
   getHomeNews,
   getHomePartners,
+  getHomePreorder,
   getHomeSolutionsTechAbout,
   getHomeStats,
   getHomeVico,
@@ -12,13 +13,14 @@ import { FinalCtaEditor } from "./_components/FinalCtaEditor";
 import { HeroEditor } from "./_components/HeroEditor";
 import { NewsEditor } from "./_components/NewsEditor";
 import { PartnersEditor } from "./_components/PartnersEditor";
+import { PreOrderEditor } from "./_components/PreOrderEditor";
 import { SolutionsTechAboutEditor } from "./_components/SolutionsTechAboutEditor";
 import { StatsEditor } from "./_components/StatsEditor";
 import { VicoProductEditor } from "./_components/VicoProductEditor";
 
 export default async function AdminHomePage() {
-  const [hero, vico, stab, partners, stats, news, finalCta] = await Promise.all(
-    [
+  const [hero, vico, stab, partners, stats, news, finalCta, preorder] =
+    await Promise.all([
       getHomeHero(),
       getHomeVico(),
       getHomeSolutionsTechAbout(),
@@ -26,8 +28,8 @@ export default async function AdminHomePage() {
       getHomeStats(),
       getHomeNews(),
       getHomeFinalCta(),
-    ],
-  );
+      getHomePreorder(),
+    ]);
 
   return (
     <div className="space-y-6">
@@ -40,13 +42,30 @@ export default async function AdminHomePage() {
         </p>
       </div>
 
-      <HeroEditor data={hero!} />
-      <VicoProductEditor data={vico!} />
-      <SolutionsTechAboutEditor data={stab!} />
-      <PartnersEditor items={partners} />
-      <StatsEditor data={stats!} />
-      <NewsEditor items={news} />
-      <FinalCtaEditor data={finalCta!} />
+      <div id="hero">
+        <HeroEditor data={hero!} />
+      </div>
+      <div id="vico">
+        <VicoProductEditor data={vico!} />
+      </div>
+      <div id="solutions-tech-about">
+        <SolutionsTechAboutEditor data={stab!} />
+      </div>
+      <div id="partners">
+        <PartnersEditor items={partners} />
+      </div>
+      <div id="stats">
+        <StatsEditor data={stats!} />
+      </div>
+      <div id="news">
+        <NewsEditor items={news} />
+      </div>
+      <div id="preorder">
+        <PreOrderEditor item={preorder} />
+      </div>
+      <div id="final-cta">
+        <FinalCtaEditor data={finalCta!} />
+      </div>
     </div>
   );
 }

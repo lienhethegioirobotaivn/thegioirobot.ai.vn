@@ -3,6 +3,12 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 interface TargetConfig {
   table: string;
   column: string;
+  /**
+   * Nếu column là jsonb array (VD: version_options: [{ imageUrl, ... }]),
+   * chỉ định tên field chứa URL trong mỗi phần tử của mảng.
+   * Bỏ trống nếu column là 1 URL string đơn giản.
+   */
+  arrayField?: string;
 }
 
 const BUCKET = "media";
@@ -15,6 +21,8 @@ const TARGETS: TargetConfig[] = [
   { table: "home_partners", column: "logo_url" },
   { table: "home_news", column: "image_url" },
   { table: "home_final_cta", column: "image_url" },
+  { table: "home_preorder", column: "image_url" },
+  { table: "home_preorder", column: "version_options", arrayField: "imageUrl" },
   { table: "site_config", column: "favicon_url" },
   { table: "site_config", column: "apple_touch_icon_url" },
   { table: "site_config", column: "og_image_url" },
@@ -30,6 +38,26 @@ function extractStoragePath(url: string): string | null {
     return null;
   }
   return url.slice(idx + marker.length);
+}
+
+function collectUrlsFromRow(
+  row: Record<string, unknown>,
+  target: TargetConfig,
+): string[] {
+  const value = row[target.column];
+
+  if (target.arrayField) {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+    return value
+      .map((item) => (item as Record<string, unknown>)?.[target.arrayField!])
+      .filter(
+        (url): url is string => typeof url === "string" && url.length > 0,
+      );
+  }
+
+  return typeof value === "string" && value.length > 0 ? [value] : [];
 }
 
 Deno.serve(async (req) => {
@@ -67,14 +95,12 @@ Deno.serve(async (req) => {
       }
 
       for (const row of data ?? []) {
-        // deno-lint-ignore no-explicit-any
-        const url = (row as any)[target.column] as string | null;
-        if (!url) {
-          continue;
-        }
-        const path = extractStoragePath(url);
-        if (path) {
-          referencedPaths.add(path);
+        const urls = collectUrlsFromRow(row as Record<string, unknown>, target);
+        for (const url of urls) {
+          const path = extractStoragePath(url);
+          if (path) {
+            referencedPaths.add(path);
+          }
         }
       }
     }

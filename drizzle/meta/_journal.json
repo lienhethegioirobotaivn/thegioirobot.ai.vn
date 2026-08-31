@@ -15,6 +15,13 @@
       "when": 1787798608078,
       "tag": "0001_gifted_black_bolt",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788150293733,
+      "tag": "0002_lucky_nighthawk",
+      "breakpoints": true
     }
   ]
 }
