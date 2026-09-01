@@ -2,13 +2,16 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
-import { getDb } from "@/db";
-import { homeSolutionsTechAbout } from "@/db/schema";
+import type { homeSolutionsTechAbout } from "@/db/schema";
 import { getIcon } from "@/lib/icon-map";
 
-export async function SolutionsTechAbout() {
-  const db = getDb();
-  const [data] = await db.select().from(homeSolutionsTechAbout).limit(1);
+type SolutionsTechAboutData = typeof homeSolutionsTechAbout.$inferSelect;
+
+export function SolutionsTechAbout({
+  data,
+}: {
+  data: SolutionsTechAboutData | null;
+}) {
   if (!data) {
     return null;
   }
@@ -18,7 +21,6 @@ export async function SolutionsTechAbout() {
       <div className="grid-lines pointer-events-none absolute inset-0 mask-[radial-gradient(ellipse_80%_60%_at_50%_0%,black_10%,transparent_70%)] opacity-20" />
 
       <div className="relative mx-auto grid grid-cols-1 gap-4 px-6 py-16 sm:px-8 lg:grid-cols-3 lg:px-12 lg:py-20">
-        {/* --- Giải pháp doanh nghiệp --- */}
         <Reveal
           id="giai-phap"
           className="border-line hover:border-accent/40 bg-surface group rounded-3xl border p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_-16px_rgba(47,109,250,0.4)]"
@@ -60,7 +62,6 @@ export async function SolutionsTechAbout() {
           </Link>
         </Reveal>
 
-        {/* --- Công nghệ cốt lõi --- */}
         <Reveal
           id="cong-nghe"
           delay={100}
@@ -114,7 +115,6 @@ export async function SolutionsTechAbout() {
           </Link>
         </Reveal>
 
-        {/* --- Về chúng tôi --- */}
         <Reveal
           id="ve-chung-toi"
           delay={200}

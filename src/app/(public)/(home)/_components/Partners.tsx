@@ -1,18 +1,14 @@
 import { Sparkles } from "lucide-react";
 
 import { Reveal } from "@/components/Reveal";
-import { getDb } from "@/db";
-import { homePartners } from "@/db/schema";
+import type { homePartners } from "@/db/schema";
 
 import { PartnerLogo } from "./PartnerLogo";
 
-export async function Partners() {
-  const db = getDb();
-  const partners = await db
-    .select()
-    .from(homePartners)
-    .orderBy(homePartners.sortOrder);
-  if (partners.length === 0) {
+type PartnerItem = typeof homePartners.$inferSelect;
+
+export function Partners({ items }: { items: PartnerItem[] }) {
+  if (items.length === 0) {
     return null;
   }
 
@@ -29,7 +25,7 @@ export async function Partners() {
           delay={100}
           className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-6"
         >
-          {partners.map((partner) => (
+          {items.map((partner) => (
             <PartnerLogo
               key={partner.id}
               name={partner.name}

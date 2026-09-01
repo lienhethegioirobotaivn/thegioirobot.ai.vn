@@ -1,10 +1,9 @@
 import { Reveal } from "@/components/Reveal";
-import { getDb } from "@/db";
-import { homeStats } from "@/db/schema";
+import type { homeStats } from "@/db/schema";
 
-export async function Stats() {
-  const db = getDb();
-  const [data] = await db.select().from(homeStats).limit(1);
+type StatsData = typeof homeStats.$inferSelect;
+
+export function Stats({ data }: { data: StatsData | null }) {
   if (!data) {
     return null;
   }

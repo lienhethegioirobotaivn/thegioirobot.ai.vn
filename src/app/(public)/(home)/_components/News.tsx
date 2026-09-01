@@ -1,19 +1,12 @@
-import { eq } from "drizzle-orm";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/Reveal";
-import { getDb } from "@/db";
-import { homeNews } from "@/db/schema";
+import type { homeNews } from "@/db/schema";
 
-export async function News() {
-  const db = getDb();
-  const items = await db
-    .select()
-    .from(homeNews)
-    .where(eq(homeNews.isPublished, true))
-    .orderBy(homeNews.sortOrder);
+type NewsItem = typeof homeNews.$inferSelect;
 
+export function News({ items }: { items: NewsItem[] }) {
   if (items.length === 0) {
     return null;
   }

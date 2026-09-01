@@ -1,11 +1,10 @@
-import { getDb } from "@/db";
-import { homePreorder } from "@/db/schema";
+import type { homePreorder } from "@/db/schema";
 
 import { PreOrderClient } from "./PreOrderClient";
 
-export async function PreOrder() {
-  const db = getDb();
-  const [data] = await db.select().from(homePreorder).limit(1);
+type PreorderData = typeof homePreorder.$inferSelect;
+
+export function PreOrder({ data }: { data: PreorderData | null }) {
   if (!data) {
     return null;
   }
